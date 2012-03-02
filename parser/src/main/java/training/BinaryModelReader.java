@@ -4,7 +4,6 @@ import training.common.JarClassLoader;
 import training.configuration_model.ConfigClass;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +21,8 @@ public class BinaryModelReader {
     
     public List<Class> loadClassesFromJar(String jarModelFile) {
         List<Class> classes = new ArrayList<Class>();
-        try {
-            JarClassLoader loader = new JarClassLoader(jarModelFile);
+        JarClassLoader loader = new JarClassLoader(jarModelFile);
 //            classes = loader.getClasses();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         return classes;
 //        URL jar = getClass().getResource(jarModelFile.getName());

@@ -13,11 +13,4 @@
         <module>../parser</module>
     </modules>
 
-    <!--
-    mvn archetype:generate \
-  -DarchetypeGroupId=org.apache.maven.archetypes \
-  -DgroupId=Integrate \
-  -DartifactId=model
-    -->
-
 </project>
