@@ -22,6 +22,7 @@ public class BinaryModelReader {
     public List<Class> loadClassesFromJar(String jarModelFile) {
         List<Class> classes = new ArrayList<Class>();
         JarClassLoader loader = new JarClassLoader(jarModelFile);
+
 //            classes = loader.getClasses();
 
         return classes;

@@ -1,5 +1,7 @@
 package training.configuration_model;
 
+import training.model.FieldType;
+
 import java.util.Map;
 
 /**

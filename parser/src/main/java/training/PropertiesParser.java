@@ -13,13 +13,27 @@ import java.util.*;
  * User: al1
  * Date: 01.03.12
  */
-public class ConfigurationModelReader {
+public class PropertiesParser {
 
     private final String PROPERTIES_EXTENTION = "properties";
+    private File resourceFolder;
+    
+    public PropertiesParser(String inputFolder) {
+        File folder = new File(inputFolder);
+        if(!folder.exists()) {
+            throw new LogicException("Directory " + inputFolder + " does not exists");
+        }
 
-    public List<Map<String, List<ConfigClass>>> readConfigModel(String inputFolder) {
+        if(!folder.isDirectory()) {
+            throw new LogicException("Path " + inputFolder + " is not a directory");
+        }
+
+        resourceFolder = folder;
+    }
+
+    public List<Map<String, List<ConfigClass>>> readConfigModel() {
         List<Map<String, List<ConfigClass>>> propsFileList = new ArrayList<Map<String, List<ConfigClass>>>();
-        List<String> filesFromInput = readFileNamesFromFolder(inputFolder, PROPERTIES_EXTENTION);
+        List<String> filesFromInput = readFileNamesFromFolder(PROPERTIES_EXTENTION);
         for(String fileName : filesFromInput) {
             propsFileList.add(parsePropertyFile(fileName));
         }
@@ -46,24 +60,15 @@ public class ConfigurationModelReader {
         return fileRecord;
     }
 
-    private List<ConfigClass> parsePropStrToConfigClasses(String classesListStr) {
+    private List<ConfigClass> parsePropStrToConfigClasses(String propertyLine) {
 
         return null;
     }
 
-    private List<String> readFileNamesFromFolder(String inputFolder, String ext) {
+    private List<String> readFileNamesFromFolder(String ext) {
         List<String> fileNames = new ArrayList<String>();
-        File folder = new File(inputFolder);
 
-        if(!folder.exists()) {
-            throw new LogicException(inputFolder + " does not exists");
-        }
-
-        if(!folder.isDirectory()) {
-            throw new LogicException(inputFolder + " is not a directory");
-        }
-
-        File[] files = folder.listFiles();
+        File[] files = resourceFolder.listFiles();
 
         for(File file : files) {
             if(file.getName().contains(ext)) {
@@ -72,5 +77,9 @@ public class ConfigurationModelReader {
         }
 
         return fileNames;
+    }
+
+    public static void main(String[] args) {
+        PropertiesParser parser = new PropertiesParser("src/test/resources/training/common/junit-3.8.1.jar");
     }
 }

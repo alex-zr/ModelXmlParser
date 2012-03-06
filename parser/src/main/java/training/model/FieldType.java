@@ -1,4 +1,4 @@
-package training.configuration_model;
+package training.model;
 
 /**
  * Created by IntelliJ IDEA.
