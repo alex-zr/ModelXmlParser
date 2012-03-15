@@ -13,17 +13,19 @@ import java.util.List;
  * Date: 02.03.12
  */
 public class ClassStructureBuilder {
-    private List<NestedSetTree<Class>> classesForest;
     private List<Class> modelClasses;
 
-    public List<NestedSetTree<Class>> buildClassesForest(List<Class> classes) {
-        if(classes == null) {
+    public ClassStructureBuilder(List<Class> modelClasses) {
+        if(modelClasses == null) {
             throw new LogicException("Classes list can't be null");
         }
-        modelClasses = classes;
-        ArrayList<NestedSetTree<Class>> forest = new ArrayList<NestedSetTree<Class>>(classes.size());
+        this.modelClasses = modelClasses;
+    }
 
-        for(Class clazz :classes) {
+    public List<NestedSetTree<Class>> buildClassesForest() {
+        ArrayList<NestedSetTree<Class>> forest = new ArrayList<NestedSetTree<Class>>(modelClasses.size());
+
+        for(Class clazz : modelClasses) {
             NestedSetTree<Class> classTree = new NestedSetTree<Class>();
             addClass(classTree, null, clazz);
             forest.add(classTree);
@@ -82,11 +84,11 @@ public class ClassStructureBuilder {
     }
 
     public static void main(String[] args) {
-        ClassStructureBuilder builder = new ClassStructureBuilder();
 //        JarClassLoader loader = new JarClassLoader("src/test/resources/training/common/junit-empty.jar");
         JarClassLoader loader = new JarClassLoader("/home/al1/IdeaProjects/ModelXmlParser/parser/src/test/resources/training/common/junit-3.8.1.jar");
+        ClassStructureBuilder builder = new ClassStructureBuilder(loader.getClasses());
 
-        List<NestedSetTree<Class>> trees = builder.buildClassesForest(loader.getClasses());
+        List<NestedSetTree<Class>> trees = builder.buildClassesForest();
         //System.out.println(trees );
     }
 }

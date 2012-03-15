@@ -8,20 +8,23 @@ import java.util.Map;
  * Date: 02.03.12
  */
 public class ClassData {
-    private String name;
+    private String className;
     private Map<String, FieldType> fields;
 
+    public ClassData() {
+    }
+
     public ClassData(String name, Map<String, FieldType> fields) {
-        this.name = name;
+        this.className = name;
         this.fields = fields;
     }
 
-    public String getName() {
-        return name;
+    public String getClassName() {
+        return className;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public Map<String, FieldType> getFields() {
@@ -35,7 +38,7 @@ public class ClassData {
     @Override
     public String toString() {
         return "ClassData{" +
-                "name='" + name + '\'' +
+                "className='" + className + '\'' +
                 ", fields=" + fields +
                 '}';
     }

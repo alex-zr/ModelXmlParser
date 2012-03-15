@@ -39,8 +39,8 @@ public class NestedSetTree<T> {
         recalculateIndexesOfParentElements(newNSTNode);
 
         tree.add(newNSTNode);
-//        System.out.println(toString());
-//        System.out.println("       ----------");
+        System.out.println(toString());
+        System.out.println("       ............");
 
         return newNSTNode.getId();
     }
@@ -53,8 +53,8 @@ public class NestedSetTree<T> {
             Long newLeft = parentNSTNode.getLeft() + 1;
             newNSTNode = new NSTNode(newId(), nodeValue, newLeft, newLeft + 1, parentNSTNode.getLevel() + 1);
         } else {    // add to righter of the right sibling
-            Long newLeft = leftSibling.getLeft() + 1;
-            newNSTNode = new NSTNode(newId(), nodeValue, newLeft, newLeft + 1, leftSibling.getLevel() );
+            Long newLeft = leftSibling.getLeft();
+            newNSTNode = new NSTNode(newId(), nodeValue, leftSibling.getLeft(), leftSibling.getRight(), leftSibling.getLevel() );
         }
 
         return newNSTNode;
