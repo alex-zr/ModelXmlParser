@@ -5,16 +5,16 @@ package model;
  * User: al1
  * Date: 14.03.12
  */
-public class Adress {
+public class Address {
     private String country;
     private String city;
     private String street;
     private String house;
 
-    public Adress() {
+    public Address() {
     }
 
-    public Adress(String country, String city, String street, String house) {
+    public Address(String country, String city, String street, String house) {
         this.country = country;
         this.city = city;
         this.street = street;
@@ -55,7 +55,7 @@ public class Adress {
 
     @Override
     public String toString() {
-        return "Adress{" +
+        return "Address{" +
                 "country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
@@ -68,7 +68,7 @@ public class Adress {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Adress adress = (Adress) o;
+        Address adress = (Address) o;
 
         if (city != null ? !city.equals(adress.city) : adress.city != null) return false;
         if (country != null ? !country.equals(adress.country) : adress.country != null) return false;

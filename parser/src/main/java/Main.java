@@ -1,10 +1,12 @@
-import training.ModelXmlWriter;
-import training.common.JarClassLoader;
-import training.common.MainConfiguration;
-import training.model.ClassStructureBuilder;
-import training.parser.PropertiesParser;
+import parser.ModelXmlWriter;
+import parser.configuration.Config;
+import parser.common.JarClassLoader;
+import parser.model.ClassStructureBuilder;
+import parser.parser.PropertiesParser;
 
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by IntelliJ IDEA.
@@ -14,16 +16,16 @@ import java.util.Map;
 public class Main {
     private JarClassLoader classLoader;
     private ClassStructureBuilder builder;
-    private MainConfiguration config;
+    private Config config;
     private PropertiesParser parser;
     private ModelXmlWriter writer;
 
     private void init() {
-        config = new MainConfiguration();
+        config = new Config();
         config.load();
         classLoader = new JarClassLoader(config.getJarPath());
         builder = new ClassStructureBuilder(classLoader.getClasses());
-        parser = new PropertiesParser(config.getInput(), builder.buildClassesForest());
+        parser = new PropertiesParser(config, builder.buildClassesForest());
         writer = new ModelXmlWriter(config.getOutput());
     }
 
@@ -31,9 +33,13 @@ public class Main {
         //TODO check input params, if absent get from properties
         Main main = new Main();
         main.init();
-        Map<String,Object[]> objects = main.parser.parseObjects();
+        Map<String, Map<String, List<Object>>> objects = main.parser.readPropertieFilesMap();
+        Set<String> fileNames = objects.keySet();
+        for(String name : fileNames) {
+            main.writer.write(objects.get(name));
+        }
         System.out.println(objects);
-        main.writer.write(objects);
+
 
     }
 }

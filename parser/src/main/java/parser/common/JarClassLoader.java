@@ -1,4 +1,4 @@
-package training.common;
+package parser.common;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

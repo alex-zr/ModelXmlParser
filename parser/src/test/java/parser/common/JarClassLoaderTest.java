@@ -1,4 +1,4 @@
-package training.common;
+package parser.common;
 
 import org.junit.Test;
 
@@ -20,8 +20,8 @@ public class JarClassLoaderTest {
 
     @Test
     public void testPositiveReadJUnit() throws IOException {
-        JarClassLoader loader = new JarClassLoader("src/test/resources/training/common/junit-3.8.1.jar");
-//        JarClassLoader loader = new JarClassLoader("/home/al1/IdeaProjects/ModelXmlParser/parser/src/test/resources/training/common/junit-3.8.1.jar");
+        JarClassLoader loader = new JarClassLoader("src/test/resources/parser/common/junit-3.8.1.jar");
+//        JarClassLoader loader = new JarClassLoader("/home/al1/IdeaProjects/ModelXmlParser/parser/src/test/resources/parser/common/junit-3.8.1.jar");
 
         List<Class> classes = loader.getClasses();
         List<String> classNames = getJUnitJarClassesList();
@@ -35,8 +35,8 @@ public class JarClassLoaderTest {
 
     @Test
     public void testNegativeEmptyJar() throws IOException {
-        JarClassLoader loader = new JarClassLoader("src/test/resources/training/common/junit-empty.jar");
-//        JarClassLoader loader = new JarClassLoader("/home/al1/IdeaProjects/ModelXmlParser/parser/src/test/resources/training/common/junit-empty.jar");
+        JarClassLoader loader = new JarClassLoader("src/test/resources/parser/common/junit-empty.jar");
+//        JarClassLoader loader = new JarClassLoader("/home/al1/IdeaProjects/ModelXmlParser/parser/src/test/resources/parser/common/junit-empty.jar");
 
         List<Class> classes = loader.getClasses();
         assertTrue(classes.isEmpty());

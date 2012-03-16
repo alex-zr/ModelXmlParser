@@ -1,5 +1,6 @@
-package training;
+package parser;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -16,7 +17,7 @@ public class ModelXmlWriter {
         this.objMap = objMap;
     }
 
-    public void write(Map<String, Object[]> objMap) {
+    public void write(Map<String, List<Object>> objMap) {
 
     }
 }

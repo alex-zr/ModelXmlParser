@@ -1,4 +1,4 @@
-package training.common;
+package parser.common;
 
 /**
  * Created by IntelliJ IDEA.

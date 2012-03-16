@@ -1,4 +1,4 @@
-package training.model;
+package parser.model;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -77,13 +77,13 @@ public class NestedSetTreeTest {
         assertEquals(new Long(1L), tree.get(1L).getLevel());
 
         assertEquals(new Long(2L), tree.get(2L).getId());
-        assertEquals(new Long(2L), tree.get(2L).getLeft());
+        assertEquals(new Long(4L), tree.get(2L).getLeft());
         assertEquals(new Long(5L), tree.get(2L).getRight());
         assertEquals(new Long(2L), tree.get(2L).getLevel());
 
         assertEquals(new Long(3L), tree.get(3L).getId());
-        assertEquals(new Long(3L), tree.get(3L).getLeft());
-        assertEquals(new Long(4L), tree.get(3L).getRight());
+        assertEquals(new Long(2L), tree.get(3L).getLeft());
+        assertEquals(new Long(3L), tree.get(3L).getRight());
         assertEquals(new Long(2L), tree.get(3L).getLevel());
 
     }

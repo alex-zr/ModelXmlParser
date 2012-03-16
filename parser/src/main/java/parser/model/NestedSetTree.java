@@ -1,4 +1,4 @@
-package training.model;
+package parser.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -39,8 +39,8 @@ public class NestedSetTree<T> {
         recalculateIndexesOfParentElements(newNSTNode);
 
         tree.add(newNSTNode);
-        System.out.println(toString());
-        System.out.println("       ............");
+//        System.out.println(toString());
+//        System.out.println("       ............");
 
         return newNSTNode.getId();
     }

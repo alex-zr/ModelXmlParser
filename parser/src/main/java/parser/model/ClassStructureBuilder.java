@@ -1,7 +1,7 @@
-package training.model;
+package parser.model;
 
-import training.common.JarClassLoader;
-import training.common.LogicException;
+import parser.common.JarClassLoader;
+import parser.common.LogicException;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -84,8 +84,8 @@ public class ClassStructureBuilder {
     }
 
     public static void main(String[] args) {
-//        JarClassLoader loader = new JarClassLoader("src/test/resources/training/common/junit-empty.jar");
-        JarClassLoader loader = new JarClassLoader("/home/al1/IdeaProjects/ModelXmlParser/parser/src/test/resources/training/common/junit-3.8.1.jar");
+//        JarClassLoader loader = new JarClassLoader("src/test/resources/parser/common/junit-empty.jar");
+        JarClassLoader loader = new JarClassLoader("/home/al1/IdeaProjects/ModelXmlParser/parser/src/test/resources/parser/common/junit-3.8.1.jar");
         ClassStructureBuilder builder = new ClassStructureBuilder(loader.getClasses());
 
         List<NestedSetTree<Class>> trees = builder.buildClassesForest();
