@@ -1,6 +1,8 @@
 package parser.parser;
 
+import org.junit.Before;
 import org.junit.Test;
+import parser.common.ReflexUtil;
 import parser.configuration.Config;
 
 import static org.junit.Assert.assertEquals;
@@ -15,14 +17,20 @@ import static org.mockito.Mockito.when;
  */
 public class LineParseIteratorTest {
     private LineParseIterator itr;
+    private Config mockConfig;
+    private ReflexUtil util;
+
+    @Before
+    public void startUp() {
+        mockConfig = getMockConfig();
+        util = new ReflexUtil(mockConfig);
+    }
 
     @Test
     public void testPositiveSingle() {
-        Config confMock = getMockConfig();
-
         String parseString = "Address(city:Kiev)";
         StrEntry expEntry = new StrEntry("Address", "city:Kiev");
-        itr = new LineParseIterator(confMock, parseString);
+        itr = new LineParseIterator(util, mockConfig, parseString);
 
         assertTrue(itr.hasNext());
         assertEquals(expEntry, itr.next());
@@ -30,12 +38,10 @@ public class LineParseIteratorTest {
 
     @Test
     public void testPositivePair() {
-        Config confMock = getMockConfig();
-
         String parseString = "Student(name:Ivan),Group(name:cs-52)";
         StrEntry expEntry1 = new StrEntry("Student", "name:Ivan");
         StrEntry expEntry2 = new StrEntry("Group", "name:cs-52");
-        itr = new LineParseIterator(confMock, parseString);
+        itr = new LineParseIterator(util, mockConfig, parseString);
 
         assertTrue(itr.hasNext());
         assertEquals(expEntry1, itr.next());

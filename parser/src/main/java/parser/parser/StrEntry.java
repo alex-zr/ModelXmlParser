@@ -48,6 +48,10 @@ public class StrEntry implements Map.Entry<String, String>{
 
         return true;
     }
+    
+    public int length() {
+        return key.length() + value.length() + 2; // add two brackets length = 2
+    }
 
     @Override
     public String toString() {

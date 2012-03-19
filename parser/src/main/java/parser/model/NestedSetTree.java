@@ -12,7 +12,10 @@ import java.util.List;
  */
 public class NestedSetTree<T> {
     private long nodeId;
-    private long newId() {return ++nodeId;}
+
+    private long newId() {
+        return ++nodeId;
+    }
 
     private List<NSTNode<T>> tree;
 
@@ -21,15 +24,15 @@ public class NestedSetTree<T> {
     }
 
     public Long add(Long parentId, T nodeValue) {
-        if(parentId == null) {
+        if (parentId == null) {
             // add root element
             NSTNode holder = new NSTNode<T>(newId(), nodeValue, 1L, 2L, 1L);
             tree.add(holder);
             return holder.getId();
         }
 
-        NSTNode parentNSTNode = get(parentId);
-        if(parentNSTNode == null) {
+        NSTNode parentNSTNode = getById(parentId);
+        if (parentNSTNode == null) {
             return null;
         }
 
@@ -49,12 +52,12 @@ public class NestedSetTree<T> {
         NSTNode leftSibling = getLeftSibling(parentNSTNode);
         NSTNode newNSTNode = null;
 
-        if(leftSibling == null) {   // no siblings
+        if (leftSibling == null) {   // no siblings
             Long newLeft = parentNSTNode.getLeft() + 1;
             newNSTNode = new NSTNode(newId(), nodeValue, newLeft, newLeft + 1, parentNSTNode.getLevel() + 1);
         } else {    // add to righter of the right sibling
             Long newLeft = leftSibling.getLeft();
-            newNSTNode = new NSTNode(newId(), nodeValue, leftSibling.getLeft(), leftSibling.getRight(), leftSibling.getLevel() );
+            newNSTNode = new NSTNode(newId(), nodeValue, leftSibling.getLeft(), leftSibling.getRight(), leftSibling.getLevel());
         }
 
         return newNSTNode;
@@ -78,14 +81,14 @@ public class NestedSetTree<T> {
 
     private NSTNode getLeftSibling(NSTNode parentNSTNode) {
         NSTNode minLeftSibling = null;
-        if(parentNSTNode.getRight() - parentNSTNode.getLeft() == 1) { // check no siblings
+        if (parentNSTNode.getRight() - parentNSTNode.getLeft() == 1) { // check no siblings
             return null;
         }
         long minLeftIndex = parentNSTNode.getRight();
-        for(NSTNode currNSTNode : tree) {
+        for (NSTNode currNSTNode : tree) {
             boolean isChild = isChild(parentNSTNode, currNSTNode);
             boolean isNextLevel = currNSTNode.getLevel() == parentNSTNode.getLevel() + 1;
-            if(isChild && isNextLevel && currNSTNode.getLeft() < minLeftIndex) {
+            if (isChild && isNextLevel && currNSTNode.getLeft() < minLeftIndex) {
                 minLeftIndex = currNSTNode.getLeft();
                 minLeftSibling = currNSTNode;
             }
@@ -100,8 +103,8 @@ public class NestedSetTree<T> {
     }
 
     private void recalculateIndexesOfRightElements(NSTNode newNSTNode) {
-        for(NSTNode holder : tree) {
-            if(holder.getLeft() >= newNSTNode.getLeft() &&
+        for (NSTNode holder : tree) {
+            if (holder.getLeft() >= newNSTNode.getLeft() &&
                     holder.getRight() >= newNSTNode.getRight()) {
                 holder.setRight(holder.getRight() + 2);
                 holder.setLeft(holder.getLeft() + 2);
@@ -110,8 +113,8 @@ public class NestedSetTree<T> {
     }
 
     private void recalculateIndexesOfParentElements(NSTNode newNSTNode) {
-        for(NSTNode holder : tree) {
-            if(holder.getLeft() < newNSTNode.getLeft() &&
+        for (NSTNode holder : tree) {
+            if (holder.getLeft() < newNSTNode.getLeft() &&
                     newNSTNode.getRight() >= holder.getLeft()) {
                 holder.setRight(holder.getRight() + 2);
             }
@@ -122,14 +125,22 @@ public class NestedSetTree<T> {
 
     }
 
-    public NSTNode get(long id) {
-        for(NSTNode holder : tree) {
-            if(holder.getId() == id) {
+    public NSTNode<T> getById(long id) {
+        for (NSTNode<T> holder : tree) {
+            if (holder.getId() == id) {
                 return holder;
             }
         }
 
         return null;
+    }
+
+    public T getByIndex(int index) {
+        return tree.get(index).getValue();
+    }
+    
+    public T getRoot() {
+        return getById(1L).getValue();
     }
 
     public int size() {
@@ -140,15 +151,15 @@ public class NestedSetTree<T> {
     private StringBuffer toStringChildren(NSTNode holder) {
         List<NSTNode<T>> children = getChildren(holder);
         StringBuffer sb = new StringBuffer();
-        if(children.isEmpty()) {
-            for(int i = 0; i < holder.getLevel(); i++) {
+        if (children.isEmpty()) {
+            for (int i = 0; i < holder.getLevel(); i++) {
                 sb.append('\t');
             }
             sb.append(holder);
             sb.append('\n');
             return sb;
         } else {
-            for(NSTNode child : children) {
+            for (NSTNode child : children) {
                 sb.append(toStringChildren(child));
             }
         }
@@ -160,11 +171,11 @@ public class NestedSetTree<T> {
     private List<NSTNode<T>> getChildren(NSTNode parent) {
         ArrayList<NSTNode<T>> chidren = new ArrayList<NSTNode<T>>();
         for (NSTNode<T> node : tree) {
-            if(isChild(parent, node)) {
+            if (isChild(parent, node)) {
                 chidren.add(node);
             }
         }
-        
+
         return chidren;
     }
 
@@ -172,24 +183,24 @@ public class NestedSetTree<T> {
         Collections.sort(tree, new Comparator<NSTNode>() {
             @Override
             public int compare(NSTNode o1, NSTNode o2) {
-                if(o1.getLeft() > o2.getLeft()) {
+                if (o1.getLeft() > o2.getLeft()) {
                     return 1;
                 }
-                if(o1.getLeft() < o2.getLeft()) {
+                if (o1.getLeft() < o2.getLeft()) {
                     return -1;
                 }
                 return 0;
             }
         });
         return tree;
-    } 
-    
+    }
+
     @Override
     public String toString() {
-        StringBuffer sb = new StringBuffer();//toStringChildren(get(1L));
+        StringBuffer sb = new StringBuffer();//toStringChildren(getById(1L));
         List<NSTNode> sTree = sortByLeft(new ArrayList<NSTNode>(tree));
-        for(NSTNode holder : sTree) {
-            for(int i = 0; i < holder.getLevel(); i++) {
+        for (NSTNode holder : sTree) {
+            for (int i = 0; i < holder.getLevel(); i++) {
                 sb.append('\t');
             }
             sb.append(holder);

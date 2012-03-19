@@ -1,4 +1,5 @@
-import parser.ModelXmlWriter;
+import parser.writer.ModelXmlWriter;
+import parser.common.ReflexUtil;
 import parser.configuration.Config;
 import parser.common.JarClassLoader;
 import parser.model.ClassStructureBuilder;
@@ -19,18 +20,20 @@ public class Main {
     private Config config;
     private PropertiesParser parser;
     private ModelXmlWriter writer;
+    private ReflexUtil util;
 
     private void init() {
         config = new Config();
         config.load();
         classLoader = new JarClassLoader(config.getJarPath());
         builder = new ClassStructureBuilder(classLoader.getClasses());
-        parser = new PropertiesParser(config, builder.buildClassesForest());
+        util = new ReflexUtil(config);
+        parser = new PropertiesParser(util, config, builder.buildClassesForest());
         writer = new ModelXmlWriter(config.getOutput());
     }
 
     public static void main(String[] args) {
-        //TODO check input params, if absent get from properties
+        //TODO check input params, if absent getById from properties
         Main main = new Main();
         main.init();
         Map<String, Map<String, List<Object>>> objects = main.parser.readPropertieFilesMap();

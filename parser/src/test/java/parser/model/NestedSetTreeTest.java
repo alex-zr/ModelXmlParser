@@ -30,15 +30,15 @@ public class NestedSetTreeTest {
         tree.add(null, 1);
         tree.add(1L, 2);
 
-        assertEquals(new Long(1L), tree.get(1L).getId());
-        assertEquals(new Long(1L), tree.get(1L).getLeft());
-        assertEquals(new Long(4L), tree.get(1L).getRight());
-        assertEquals(new Long(1L), tree.get(1L).getLevel());
+        assertEquals(new Long(1L), tree.getById(1L).getId());
+        assertEquals(new Long(1L), tree.getById(1L).getLeft());
+        assertEquals(new Long(4L), tree.getById(1L).getRight());
+        assertEquals(new Long(1L), tree.getById(1L).getLevel());
 
-        assertEquals(new Long(2L), tree.get(2L).getId());
-        assertEquals(new Long(2L), tree.get(2L).getLeft());
-        assertEquals(new Long(3L), tree.get(2L).getRight());
-        assertEquals(new Long(2L), tree.get(2L).getLevel());
+        assertEquals(new Long(2L), tree.getById(2L).getId());
+        assertEquals(new Long(2L), tree.getById(2L).getLeft());
+        assertEquals(new Long(3L), tree.getById(2L).getRight());
+        assertEquals(new Long(2L), tree.getById(2L).getLevel());
     }
 
     @Test
@@ -47,20 +47,20 @@ public class NestedSetTreeTest {
         tree.add(1L, 2);
         tree.add(2L, 3);
 
-        assertEquals(new Long(1L), tree.get(1L).getId());
-        assertEquals(new Long(1L), tree.get(1L).getLeft());
-        assertEquals(new Long(6L), tree.get(1L).getRight());
-        assertEquals(new Long(1L), tree.get(1L).getLevel());
+        assertEquals(new Long(1L), tree.getById(1L).getId());
+        assertEquals(new Long(1L), tree.getById(1L).getLeft());
+        assertEquals(new Long(6L), tree.getById(1L).getRight());
+        assertEquals(new Long(1L), tree.getById(1L).getLevel());
 
-        assertEquals(new Long(2L), tree.get(2L).getId());
-        assertEquals(new Long(2L), tree.get(2L).getLeft());
-        assertEquals(new Long(5L), tree.get(2L).getRight());
-        assertEquals(new Long(2L), tree.get(2L).getLevel());
+        assertEquals(new Long(2L), tree.getById(2L).getId());
+        assertEquals(new Long(2L), tree.getById(2L).getLeft());
+        assertEquals(new Long(5L), tree.getById(2L).getRight());
+        assertEquals(new Long(2L), tree.getById(2L).getLevel());
 
-        assertEquals(new Long(3L), tree.get(3L).getId());
-        assertEquals(new Long(3L), tree.get(3L).getLeft());
-        assertEquals(new Long(4L), tree.get(3L).getRight());
-        assertEquals(new Long(3L), tree.get(3L).getLevel());
+        assertEquals(new Long(3L), tree.getById(3L).getId());
+        assertEquals(new Long(3L), tree.getById(3L).getLeft());
+        assertEquals(new Long(4L), tree.getById(3L).getRight());
+        assertEquals(new Long(3L), tree.getById(3L).getLevel());
     }
 
     @Test
@@ -71,20 +71,20 @@ public class NestedSetTreeTest {
 
         System.out.println(tree);
 
-        assertEquals(new Long(1L), tree.get(1L).getId());
-        assertEquals(new Long(1L), tree.get(1L).getLeft());
-        assertEquals(new Long(6L), tree.get(1L).getRight());
-        assertEquals(new Long(1L), tree.get(1L).getLevel());
+        assertEquals(new Long(1L), tree.getById(1L).getId());
+        assertEquals(new Long(1L), tree.getById(1L).getLeft());
+        assertEquals(new Long(6L), tree.getById(1L).getRight());
+        assertEquals(new Long(1L), tree.getById(1L).getLevel());
 
-        assertEquals(new Long(2L), tree.get(2L).getId());
-        assertEquals(new Long(4L), tree.get(2L).getLeft());
-        assertEquals(new Long(5L), tree.get(2L).getRight());
-        assertEquals(new Long(2L), tree.get(2L).getLevel());
+        assertEquals(new Long(2L), tree.getById(2L).getId());
+        assertEquals(new Long(4L), tree.getById(2L).getLeft());
+        assertEquals(new Long(5L), tree.getById(2L).getRight());
+        assertEquals(new Long(2L), tree.getById(2L).getLevel());
 
-        assertEquals(new Long(3L), tree.get(3L).getId());
-        assertEquals(new Long(2L), tree.get(3L).getLeft());
-        assertEquals(new Long(3L), tree.get(3L).getRight());
-        assertEquals(new Long(2L), tree.get(3L).getLevel());
+        assertEquals(new Long(3L), tree.getById(3L).getId());
+        assertEquals(new Long(2L), tree.getById(3L).getLeft());
+        assertEquals(new Long(3L), tree.getById(3L).getRight());
+        assertEquals(new Long(2L), tree.getById(3L).getLevel());
 
     }
 

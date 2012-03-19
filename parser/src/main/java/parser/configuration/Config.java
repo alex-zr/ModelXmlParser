@@ -45,7 +45,7 @@ public class Config {
             String classDelimiterStr = prop.getProperty(CLASS_DELIMITER_PARAM_NAME);
             String leftBracketStr = prop.getProperty(LEFT_BRACKET_PARAM_NAME);
             String rightBracketStr = prop.getProperty(RIGHT_BRACKET_PARAM_NAME);
-            String valueDelimiterStr = prop.getProperty(CLASS_DELIMITER_PARAM_NAME);
+            String valueDelimiterStr = prop.getProperty(VALUE_DELIMITER_PARAM_NAME);
 
             if(input == null || input.isEmpty()) {
                 throw new LogicException(INPUT_PATH_PARAM_NAME + " parameter is absent in config");

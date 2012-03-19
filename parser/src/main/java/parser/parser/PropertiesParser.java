@@ -1,6 +1,7 @@
 package parser.parser;
 
 import parser.common.LogicException;
+import parser.common.ReflexUtil;
 import parser.configuration.Config;
 import parser.model.NestedSetTree;
 
@@ -20,11 +21,12 @@ public class PropertiesParser {
     private Config conf;
     private File resourceFolder;
     private List<NestedSetTree<Class>> classForest;
+    private ReflexUtil util;
 
-
-    public PropertiesParser(Config conf, List<NestedSetTree<Class>> forest) {
+    public PropertiesParser(ReflexUtil util, Config conf, List<NestedSetTree<Class>> forest) {
         String inputFolder = conf.getInput();
         File folder = new File(inputFolder);
+
         if(!folder.exists()) {
             throw new LogicException("Directory " + inputFolder + " does not exists");
         }
@@ -32,15 +34,20 @@ public class PropertiesParser {
         if(!folder.isDirectory()) {
             throw new LogicException("Path " + inputFolder + " is not a directory");
         }
-        
+
+        if(util == null) {
+            throw new LogicException("util param can't be null");
+        }
+
         if(forest == null) {
-            throw new LogicException("Class forest can't be null");
+            throw new LogicException("forest param can't be null");
         }
         
         if(conf == null) {
             throw new LogicException("Config can't be null");
         }
 
+        this.util = util;
         this.conf = conf;
         this.resourceFolder = folder;
         this.classForest = forest;
@@ -97,7 +104,7 @@ public class PropertiesParser {
 
         List<Object> classesData = new ArrayList<Object>();
 
-        LineParseIterator parseIterator = new LineParseIterator(conf, propertyLine);
+        LineParseIterator parseIterator = new LineParseIterator(util, conf, propertyLine);
 
         for(Map.Entry<String, String> objEntry : parseIterator) {
             Object object = buildObject(objEntry.getKey(), objEntry.getValue());
@@ -118,17 +125,32 @@ public class PropertiesParser {
      * @return
      */
     private Object buildObject(String className, String content) {
-//        Map<String, String> classes = getClassesMapByContent(content);
-//        if(classes.isEmpty()) {
-//            return makeObjectByClassAndSimpleContent(className, content);
-//        }
-//
-//        for(Map.Entry<String, String> clazz : classes.entrySet()) {
-//            buildObject(clazz.getKey(), clazz.getValue());
-//        }
+        Map<String, String>  classes = getClassesMap(content);
+        if(classes.isEmpty()) {
+            try {
+                return util.instantiateObj(classForest, className, content);
+            } catch (IllegalAccessException e) {
+                throw new LogicException(e);
+            } catch (InstantiationException e) {
+                throw new LogicException(e);
+            }
+        }
+
+        for(Map.Entry<String, String> clazz : classes.entrySet()) {
+            buildObject(clazz.getKey(), clazz.getValue());
+        }
 
         return null;
-    } 
+    }
+
+    private Map<String, String> getClassesMap(String content) {
+        Map<String, String> classes = new HashMap<String, String>();
+        LineParseIterator parseIterator = new LineParseIterator(util, conf, content);
+        for(Map.Entry<String, String> o : parseIterator) {
+            classes.put(o.getKey(), o.getValue());
+        }
+        return classes;
+    }
 
     private List<File> readFilesFromFolder(String ext) {
         List<File> fileNames = new ArrayList<File>();

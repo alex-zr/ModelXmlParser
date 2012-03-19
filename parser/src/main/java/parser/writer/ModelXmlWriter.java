@@ -1,4 +1,4 @@
-package parser;
+package parser.writer;
 
 import java.util.List;
 import java.util.Map;
