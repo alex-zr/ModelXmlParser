@@ -1,3 +1,5 @@
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import parser.writer.ModelXmlWriter;
 import parser.common.ReflexUtil;
 import parser.configuration.Config;
@@ -15,6 +17,7 @@ import java.util.Set;
  * Date: 14.03.12
  */
 public class Main {
+    final static Logger logger = LoggerFactory.getLogger(Main.class);
     private JarClassLoader classLoader;
     private ClassStructureBuilder builder;
     private Config config;
@@ -38,11 +41,11 @@ public class Main {
         main.init();
         Map<String, Map<String, List<Object>>> objects = main.parser.readPropertieFilesMap();
         Set<String> fileNames = objects.keySet();
+
+        logger.info(objects.toString());
+
         for(String name : fileNames) {
             main.writer.write(objects.get(name));
         }
-        System.out.println(objects);
-
-
     }
 }

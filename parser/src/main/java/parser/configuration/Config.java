@@ -35,7 +35,6 @@ public class Config {
         Properties prop = new Properties();
 
         try {
-            System.out.println(this.getClass().getResource(".").getFile());
             InputStream resourceAsStream = this.getClass().getResourceAsStream(CONF_FILE_NAME);
             prop.load(resourceAsStream);
 

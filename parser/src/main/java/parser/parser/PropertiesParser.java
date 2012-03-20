@@ -1,5 +1,7 @@
 package parser.parser;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import parser.common.LogicException;
 import parser.common.ReflexUtil;
 import parser.configuration.Config;
@@ -16,7 +18,7 @@ import java.util.*;
  * Date: 01.03.12
  */
 public class PropertiesParser {
-
+    final static Logger logger = LoggerFactory.getLogger(PropertiesParser.class);
     private final String PROPERTIES_EXTENTION = "properties";
     private Config conf;
     private File resourceFolder;
@@ -109,10 +111,9 @@ public class PropertiesParser {
         for(Map.Entry<String, String> objEntry : parseIterator) {
             Object object = buildObject(objEntry.getKey(), objEntry.getValue());
             classesData.add(object);
-            System.out.print(objEntry + " ");
-        }
 
-        System.out.println();
+            logger.debug(objEntry + " ");
+        }
 
         return classesData;
     }

@@ -8,6 +8,7 @@ package model;
 public class Student {
     private String name;
     private Group group;
+    int age;
 
     public Student() {
     }
@@ -33,12 +34,12 @@ public class Student {
         this.group = group;
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", group=" + group +
-                '}';
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 
     @Override
@@ -48,6 +49,7 @@ public class Student {
 
         Student student = (Student) o;
 
+        if (age != student.age) return false;
         if (group != null ? !group.equals(student.group) : student.group != null) return false;
         if (name != null ? !name.equals(student.name) : student.name != null) return false;
 
@@ -58,6 +60,16 @@ public class Student {
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (group != null ? group.hashCode() : 0);
+        result = 31 * result + age;
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "name='" + name + '\'' +
+                ", group=" + group +
+                ", age=" + age +
+                '}';
     }
 }

@@ -1,5 +1,7 @@
 package parser.common;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import parser.configuration.Config;
 import parser.model.NestedSetTree;
 import parser.parser.StrEntry;
@@ -16,6 +18,8 @@ import java.util.List;
  * Date: 16.03.12
  */
 public class ReflexUtil {
+
+    final static Logger logger = LoggerFactory.getLogger(ReflexUtil.class);
     private Config conf;
 
     public ReflexUtil(Config conf) {
@@ -93,7 +97,12 @@ public class ReflexUtil {
         String[] strings = simpleContent.split(String.valueOf(conf.getClassDelimiter()));
         for(String fieldStr : strings) {
             int valueDelimIdx = fieldStr.indexOf(conf.getValueDelimiter());
-            String fieldName = fieldStr.substring(0, valueDelimIdx);
+            String fieldName;
+            try {
+                fieldName = fieldStr.substring(0, valueDelimIdx);
+            } catch (StringIndexOutOfBoundsException e) {
+                throw new ParseException("Value delimiter '" + conf.getValueDelimiter() + "' in '" + fieldStr + "' not found", e);
+            }
             String value = fieldStr.substring(valueDelimIdx + 1); //skip value delimiter
             try {
                 Field field = obj.getClass().getDeclaredField(fieldName);

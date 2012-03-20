@@ -15,7 +15,7 @@ public class TypeFactory {
         if(name.contains(STRING_TYPE)) {
             return new StringType();
         } else if(name.contains(INT_TYPE)) {
-
+            return new IntType();
         }
         throw new ParseException("No type found " + name);
     }

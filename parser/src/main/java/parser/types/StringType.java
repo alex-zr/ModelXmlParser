@@ -13,13 +13,13 @@ import java.lang.reflect.Method;
 public class StringType extends Type {
 
     @Override
-    public void setValue(Object obj, String name, Object value) {
+    public void setValue(Object obj, String name, String value) {
         String setterName = "set" + capitalizeFirst(name);
         try {
             Method method = obj.getClass().getMethod(setterName, String.class);
             method.invoke(obj, value);
         } catch (NoSuchMethodException e) {
-            throw new ParseException("Method " + setterName + " not found", e);
+            throw new ParseException("Method " + setterName + "(String) not found in class " + obj.getClass().getName() , e);
         } catch (InvocationTargetException e) {
             throw new ParseException(e);
         } catch (IllegalAccessException e) {
